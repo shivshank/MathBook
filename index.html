@@ -6,6 +6,7 @@
             html, body {
                 font-family: Arial, sans-serif;
                 line-height: 1.4em;
+                background: #EEE;
             }
             
             #review {
@@ -13,6 +14,10 @@
                 padding: 15px;
                 border-right: 1px solid black;
                 width: 800px;
+            }
+            
+            ul {
+                list-style: none;
             }
             
             ul li {
@@ -48,8 +53,23 @@
                 font-size: 1em;
             }
         </style>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                AsciiMath: {
+                    fixphi: true,
+                    useMathMLspacing: true,
+                    displaystyle: false,
+                    decimalsign: "."
+                },
+                    asciimath2jax: {
+                    delimiters: [["|","|"]]
+                },
+                "HTML-CSS": {
+                    scale: 100
+                }
+            });
+        </script>
         <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML"></script>
-        <script src="res/ASCIIMathML.js"></script>
         <script src="res/marked.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     </head>
@@ -61,28 +81,29 @@
             $.get("./StepReview.md", {}, function(text) {
                 // convert it to markdown
                 var r = marked(text);
+
                 $("#review").append(r);
-                setTimeout(function() {
-                    asciimath.AMprocessNode($("#review")[0]);
-                    
-                    // fill in the TOC (after asciimath runs)
-                    var toc = $("#table-of-contents");
-                    $("h2").each(function() {
-                        var n = $("<h3>").text($(this).text());
-                        toc.append(n);
-                    });
-                    toc.on("click", "h3", function(e) {
-                        if (!e.target) {
-                            return false;
+                
+                // fill in the TOC
+                var toc = $("#table-of-contents");
+                $("h2").each(function() {
+                    var n = $("<h3>").text($(this).text());
+                    toc.append(n);
+                });
+                
+                toc.on("click", "h3", function(e) {
+                    if (!e.target) {
+                        return false;
+                    }
+                    var find = $(e.target).text();
+                    $("h2").each( function() {
+                        if ($(this).text() === find) {
+                            this.scrollIntoView();
                         }
-                        var find = $(e.target).text();
-                        $("h2").each( function() {
-                            if ($(this).text() === find) {
-                                this.scrollIntoView();
-                            }
-                        });
                     });
-                }, 100);
+                });
+                
+                MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
             }, "text");
         </script>
     </body>
