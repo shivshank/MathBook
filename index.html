@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            html, body {
+                font-family: Arial, sans-serif;
+                line-height: 1.4em;
+            }
+            
+            #review {
+                margin: 0px 0px 0px 5%;
+                padding: 15px;
+                border-right: 1px solid black;
+                width: 800px;
+            }
+            
+            ul li {
+                margin-bottom: 1em;
+            }
+            
+            em {
+                font-style: normal;
+                
+                padding: 2px;
+                margin-left: 20px;
+                
+                background: #DDD;
+                border-top: 2px solid #444;
+                color: #DDD;
+                
+                transition: color 0.3s linear;
+                -webkit-transition: color 0.3s linear;
+            }
+            em:hover {
+                color: #000;
+            }
+            
+            #table-of-contents {
+                padding: 15px;
+                
+                background: #DDD;
+                border-top: 2px solid #444;
+            }
+            #table-of-contents h3 {
+                margin-left: 25px;
+                line-height: 1.1em;
+                font-size: 1em;
+            }
+        </style>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML"></script>
+        <script src="res/ASCIIMathML.js"></script>
+        <script src="res/marked.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="review"></div>
+        <script>
+            // a simple brute force script to load and format everything
+            // also creates a table of contents
+            $.get("./StepReview.md", {}, function(text) {
+                // convert it to markdown
+                var r = marked(text);
+                $("#review").append(r);
+                setTimeout(function() {
+                    asciimath.AMprocessNode($("#review")[0]);
+                    
+                    // fill in the TOC (after asciimath runs)
+                    var toc = $("#table-of-contents");
+                    $("h2").each(function() {
+                        var n = $("<h3>").text($(this).text());
+                        toc.append(n);
+                    });
+                    toc.on("click", "h3", function(e) {
+                        if (!e.target) {
+                            return false;
+                        }
+                        var find = $(e.target).text();
+                        $("h2").each( function() {
+                            if ($(this).text() === find) {
+                                this.scrollIntoView();
+                            }
+                        });
+                    });
+                }, 100);
+            }, "text");
+        </script>
+    </body>
+</html>
