@@ -24,7 +24,17 @@
                 margin-bottom: 1em;
             }
             
-            em {
+            #table-of-contents li {
+                margin-bottom: 0px;
+                padding-bottom: 0.5em;
+            }
+            
+            #table-of-contents li:hover {
+                cursor: pointer;
+                font-weight: bold;
+            }
+            
+            em, .answers {
                 font-style: normal;
                 
                 padding: 2px;
@@ -37,11 +47,11 @@
                 transition: color 0.3s linear;
                 -webkit-transition: color 0.3s linear;
             }
-            em:hover {
+            em:hover, .answers:hover {
                 color: #000;
             }
             
-            #table-of-contents {
+            #table-of-contents-wrapper {
                 padding: 15px;
                 
                 background: #DDD;
@@ -61,49 +71,83 @@
                     displaystyle: false,
                     decimalsign: "."
                 },
-                    asciimath2jax: {
+                asciimath2jax: {
                     delimiters: [["|","|"]]
                 },
                 "HTML-CSS": {
                     scale: 100
-                }
+                },
+                skipStartupTypeset: true
             });
         </script>
         <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML"></script>
         <script src="res/marked.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="plot.js"></script>
     </head>
     <body>
+        <div id="pages" style="display:none">
+        </div>
+        
+        <h1>Calc One Review</h1>
+        <p>This review is a "your exam's coming up and you need to pass" kind of review; it won't really explain the questions too much, but I will try to give you some good memorization tips and practical step-by-steps.</p>
+        
+        <p>I provide hints, answers, and explanation in little gray boxes around the page. Hover over them or click them to show the content. This page might run slowly, so I don't recommend using your phone. To make the best use of this, have paper, pencil, and calculator ready and take notes. Every time you see a line of math you should write it down and check it yourself!</p>
+        <div id="table-of-contents-wrapper">
+            <h1>Table of Contents</h1>
+            <p>Click the section you want to view.</p>
+            <ul id="table-of-contents"></ul>
+        </div>
+        
         <div id="review"></div>
+        
         <script>
-            // a simple brute force script to load and format everything
-            // also creates a table of contents
+            
+            var toc = $("#table-of-contents"),
+                pages = $("#pages"),
+                review = $("#review");
+                
+            // attach a handler for unhiding answer boxes
+            review.on("click", "em, .answers", function(e) {
+                if (!e.target) {
+                    return;
+                }
+                $(this).css({"color": "#000"});
+            });
+            
+            // attach a page-selector handler to the table of contents
+            toc.on("click", "li", function(e) {
+                if (!e.target) {
+                    return false;
+                }
+                var findHeading = $(e.target).text(),
+                    heading = null;
+                
+                pages.find("h2").each( function() {
+                    if ($(this).text() === findHeading) {
+                        heading = $(this);
+                    }
+                });
+                
+                review.empty();
+                do {
+                    review.append(heading.clone());
+                    heading = heading.next();
+                } while(heading.length > 0 && heading.prop("tagName") !== "H2");
+                
+                MathJax.Hub.Typeset(review[0]);
+            });
+            
+            // load the review sheet
             $.get("./StepReview.md", {}, function(text) {
-                // convert it to markdown
-                var r = marked(text);
-
-                $("#review").append(r);
+                // convert it to html
+                pages.append(marked(text));
                 
                 // fill in the TOC
-                var toc = $("#table-of-contents");
-                $("h2").each(function() {
-                    var n = $("<h3>").text($(this).text());
+                pages.find("h2").each(function() {
+                    var n = $("<li>").text($(this).text());
                     toc.append(n);
                 });
-                
-                toc.on("click", "h3", function(e) {
-                    if (!e.target) {
-                        return false;
-                    }
-                    var find = $(e.target).text();
-                    $("h2").each( function() {
-                        if ($(this).text() === find) {
-                            this.scrollIntoView();
-                        }
-                    });
-                });
-                
-                MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
             }, "text");
         </script>
     </body>
