@@ -83,7 +83,68 @@ Now if we put it all together, we can multiply fractions. Recall that |3/4 = 3 1
   * |(a + b)/(c + d) * 3/5 = (3(a+b))/(5(c + d))|
   * |(x+3)/(8-x^2) \* (sqrt(x)+1)/(x-1) = ((x+3)(sqrt(x)+1))/((8-x^2)(x-1))|
 
-## What is the difference between |y'|, |d/(dx)|, and |(dy)/(dx)|
+## What are the derivative rules?
+**Remember:** The derivative of |a +- b| is |a' +- b'| but the derivative of |a\*b| IS NOT |a' \* b'|, and the derivative of |a/b| is also not |(a')/(b')|.
+ 
+The sum and difference rules (when you add and subtract):
+  * The derivative of |a + b| is the same as the derivative of each added together.
+  * |d/(dx)[a + b] = a' + b'|
+  * |d/(dx)[a - b] = a' - b'|
+  * Example:
+  * |d/(dx)[3x + sin(x)] = 3 + cos(x)|
+
+The constant multiple rule (when you multiply by a number):
+  * You can pull constants out of derivatives, bascially.
+  * So |d/(dx)3x^2| is the same as |3| times |d/(dx)x^2|, aka |6x|
+  * |d/(dx)[684353567sin(x)] = 684353567cos(x)|
+  * The derivative of a constant alone is zero, though:
+  * |d/(dx)5 = 0|
+  * You can only pull the constant out when there's more to the derivative.
+
+The power rule:
+  * |d/(dx)x^n = nx^(n-1)|
+  * Examples:
+  * |d/(dx)x^3 = 3x^2|
+  * |d/(da)a^6 = 6a^5|
+  * |d/(dx)2x^5 = 2 \* d/(dx)x^5 = 2 \* 5 \* x^4 = 10x^4| _pull the constant out_
+  * This works for negative and fractional stuff too.
+  * |1/x = x^-1| so |d/(dx)1/x = -x^-2|
+  * |sqrt(x) = x^(1/2)| so |d/(dx)sqrt(x) = 1/2x^(-1/2)|
+
+The product rule:
+  * |d/(dx)[f(x)*g(x)] = f'(x)g(x) + g'(x)f(x)|
+  * A lot of people say "the derivative of the first times the second plus the derivative of the second times the first."
+  * I personally remember that it "flip-flops" while kind of picturing it in my head.
+  * You use the product rule whenever you have 2 things multiplied.
+  * |d/(dx)[x^2\*sin(x)] = 2x\*sin(x) + cos(x)\*x^2|
+  * Here's a longer problem worked out:
+  * |d/(dx)[5sin(x)tan(x)]|
+  * That's three things multiplied. You could use the product rule several ways here. You can group 5 with sin(x), pull the 5 out entirely. I am going to group the 5 and sin together.
+  * |d/(dx)[5sin(x)]tan(x) + 5sin(x)*d/(dx)tan(x)|
+  * |5cos(x)tan(x) + 5sin(x)*((secx)^2)| _recall |d/(dx)tan(x) = (secx)^2|_
+
+The quotient rule:
+  * to do
+  * A good saying is "low D high minus high D low over low squared" to remember the rule
+
+For the chain rule, see the other section.
+
+**Bonus:** Simplify/rewrite: |5cos(x)tan(x) + 5sin(x)*((secx)^2)|
+
+<div class="answers">
+	<p>There are several ways to rewrite the above. Here are some.</p>
+	<ul>
+		<li>|5sin(x) + 5sin(x)((secx)^2)|</li>
+		<li>|5sin(x) + 5tan(x)sec(x)|</li>
+		<li>|5(sin(x) + tan(x)sec(x))|</li>
+	</ul>
+</div>
+
+## When (and how) do I use the chain rule?
+
+## How do I do implicit differentiation?
+
+## What is the difference between |y'|, |d/(dx)|, and |(dy)/(dx)|?
 Here is the key difference: |d/(dx)| is an "operator" and |y'| and |(dy)/(dx)| are functions. That means...?
 
 More simply, |d/(dx)| means "take the derivative of":
@@ -97,7 +158,7 @@ Secondly: |y'| and |(dy)/(dx)| mean the same thing. They are equivalent. If you 
 
 Finally: |d/(dx)| and |(dy)/(dx)| are very confusing to many people because **they look like fractions, but they are not.** They are a whole symbol and must move together, despite appearing to behave like fractions sometimes.
 
-## Finding critical points, maxes and mins, and inflection points
+## How do I find critical points, extrema, and inflection points?
 I found some [simple examples here (ucsb.edu)](http://clas.sa.ucsb.edu/staff/lee/inflection%20points.htm). I'll be working out a more complex problem: if you can handle this one you can probably handle all the ones you'll encounter.
 
 Vocab:
@@ -221,7 +282,7 @@ The only times that a function is undefined are when you divide by zero or take 
   * |sqrt(x - 10)/x| is undefined when |x < 10| or |x = 0|
 
 ## Exponents and Exponent Rules
-The basics: |x^n| means |x| times |x|, |n| times. For instance, |x^3 = x*x*x|.
+The basics: |x^n| means |x| times |x|, |n| times. For instance, |x^3 = x\*x\*x|.
 
 A lot of people forget how crazy exponents work. Here's the main rules. Read each line and see if it makes sense. If it doesn't you should study ["exponent rules"](https://www.khanacademy.org/math/pre-algebra/exponents-radicals).
 
