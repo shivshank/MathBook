@@ -1,3 +1,47 @@
+## What topics did my class cover (here's a list of stuff)?
+
+# Calculus One: Review Guide
+
+Here's a list of topics your calc class might have/probably covered. Hopefully it's helpful and not depressing!
+
+1. Slope
+1. Functions
+  * Transformations
+1. Derivatives
+  * Tangent Lines (a line that represents the slope of a function at a point)
+  * Higher Order Derivatives (f', f'', f''', |f^4|, etc)
+  * Stationary Points (f'=0, implies min, max, or inflection)
+  * Critical Points (f'=0 or f' = DNE, signals a Vertical Asymptote or local extreme, aka min/max)
+  * Inflection Points (f''=0 & f'' changes sign, signals concavity change)
+  * Concavity (concave up means accelerating growth, convave down means slowing growth)
+1. Limits
+  * Direct Substituion
+  * Continuity: |lim_(x->c)f(x) = f(c)|
+  * Problems using |lim_(x->0)[(sinx)/x] = 1|
+  * Limits at Infinity and functions increasing/decreasing without bound
+  * L'Hôpital's rule
+1. Derivative Rules
+  * Chain Rule
+  * Product Rule
+  * Quotient Rule
+  * Power Rule
+1. Trig (aka Trigonometry)
+  * Derivatives of Sin, Cos, Sec, Csc, Tan, Cot
+  * Inverse trig functions, reciprocal trig functions and their derivatives
+1. Applications of Derivatives
+  * Implicit Differentiation
+  * Motion, Position, Velocity/Speed, Acceleration (Physics, some Kinematics)
+  * Finding Minimums and Maximums (Extrema)
+  * Finding specific derivatives of inverse functions
+  * Optimization Problems
+1. Derivative Theorems
+  * Intermediate Value Theorem
+  * Extreme Value Theorem
+  * Mean Value Theorem
+1. Integration
+  * Integration Rules
+  * Initial Value Problems
+
 ## Identifying Operations: some basic review (start here!)
 Before we can continue, we need to check that you remember the basics. The following questions all ask you what operation is going on in the expression. For instance:
   * |3 + 4| is addition
